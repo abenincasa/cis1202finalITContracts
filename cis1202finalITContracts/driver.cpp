@@ -360,38 +360,58 @@ Contracts createContractHeader() {
 }
 
 void displayAllContracts(vector<PersonContData> allPersons, vector<PlaceContData> allPlaces, vector<ThingContData> allThings) {
+	double contWorkHrs = 0;
+	double contRate = 0;
+	double totalAllCont = 0;
+	const double workYear = 2080;
+	cout << setprecision(2) << fixed << showpoint;
+	cout << endl;
+	cout << endl;
+	cout << "PEOPLE" << endl;
+	cout << left << setw(12) << "Cont ID#" << left << setw(30) << "Cont Name" << left << setw(10) << "Start" << left << setw(10) << "End" << left << setw(10) << "Cost(1K$)" << endl;
+	cout << "-------------------------------------------------------------------------\n";
 	for (int i = 0;i < allPersons.size();i++) {
-		cout << allPersons[i].userCTID << endl;
-		cout << allPersons[i].userCTName << endl;
-		cout << allPersons[i].userCTStart << endl;
-		cout << allPersons[i].userCTEnd << endl;
-		cout << allPersons[i].userCTCost << endl;
-		cout << allPersons[i].userPID << endl;
-		cout << allPersons[i].userPSkill << endl;
-		cout << allPersons[i].userPYearsExp << endl;
-		cout << allPersons[i].userPHire << endl;
+		cout << left << setw(12) << allPersons[i].userCTID;
+		cout << left << setw(30) << allPersons[i].userCTName;
+		cout << left << setw(10) << allPersons[i].userCTStart;
+		cout << left << setw(10) << allPersons[i].userCTEnd;
+		cout << left << setw(10) << allPersons[i].userCTCost/1000 << endl;
+		contWorkHrs+=(allPersons[i].userCTEnd- allPersons[i].userCTStart);
+		totalAllCont += allPersons[i].userCTCost;
 	}
+	cout << endl;
+	cout << left << setw(24) << "Contract Work Hours" << left << setw(24) << "Total Cost (1K$)" << left << setw(24) << "Overall Rate($)" << endl;
+	cout << "-------------------------------------------------------------------------\n";
+	cout << left << setw(24) << contWorkHrs*workYear;
+	cout << left << setw(24) << totalAllCont/1000;
+	cout << left << setw(24) << (totalAllCont / (contWorkHrs * workYear)) << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << "PLACES" << endl;
+	cout << left << setw(12) << "Cont ID#" << left << setw(30) << "Cont Name" << left << setw(10) << "Start" << left << setw(10) << "End" << left << setw(10) << "Cost(1K$)" << endl;
+	cout << "-------------------------------------------------------------------------\n";
 	for (int i = 0;i < allPlaces.size();i++) {
-		cout << allPlaces[i].userCTID << endl;
-		cout << allPlaces[i].userCTName << endl;
-		cout << allPlaces[i].userCTStart << endl;
-		cout << allPlaces[i].userCTEnd << endl;
-		cout << allPlaces[i].userCTCost << endl;
-		cout << allPlaces[i].userLcID << endl;
-		cout << allPlaces[i].userLcLocation << endl;
-		cout << allPlaces[i].userLcSFt << endl;
+		cout << left << setw(12) << allPlaces[i].userCTID;
+		cout << left << setw(30) << allPlaces[i].userCTName;
+		cout << left << setw(10) << allPlaces[i].userCTStart;
+		cout << left << setw(10) << allPlaces[i].userCTEnd;
+		cout << left << setw(10) << allPlaces[i].userCTCost/1000 << endl;
+		
 	}
+	cout << endl;
+	cout << endl;
+	cout << "THINGS" << endl;
+	cout << left << setw(12) << "Cont ID#" << left << setw(30) << "Cont Name" << left << setw(10) << "Start" << left << setw(10) << "End" << left << setw(10) << "Cost(1K$)" << endl;
+	cout << "-------------------------------------------------------------------------\n";
 	for (int i = 0;i < allThings.size();i++) {
-		cout << allThings[i].userCTID << endl;
-		cout << allThings[i].userCTName << endl;
-		cout << allThings[i].userCTStart << endl;
-		cout << allThings[i].userCTEnd << endl;
-		cout << allThings[i].userCTCost << endl;
-		cout << allThings[i].userThID << endl;
-		cout << allThings[i].userThManufacturer << endl;
-		cout << allThings[i].userThModel << endl;
-		cout << allThings[i].userThYearPurch << endl;
-		cout << allThings[i].userThYearsLife << endl;
+		cout << left << setw(12) << allThings[i].userCTID;
+		cout << left << setw(30) << allThings[i].userCTName;
+		cout << left << setw(10) << allThings[i].userCTStart;
+		cout << left << setw(10) << allThings[i].userCTEnd;
+		cout << left << setw(10) << allThings[i].userCTCost/1000 << endl;
+		
 	}
 }
 

@@ -21,13 +21,13 @@ void Contracts::displayCTInfo() {
 	cout << setprecision(2) << fixed << showpoint;
 	cout << endl;
 	cout << endl;
-	cout << left << setw(12) << "Cont ID#" << left << setw(30) << "Cont Name" << left << setw(10) << "Start" << left << setw(10) << "End" << left << setw(10) << "Cost($)" << endl;
+	cout << left << setw(12) << "Cont ID#" << left << setw(30) << "Cont Name" << left << setw(10) << "Start" << left << setw(10) << "End" << left << setw(10) << "Cost(1K$)" << endl;
 	cout << "-------------------------------------------------------------------------\n";
 	cout << left << setw(12) << ctID;
 	cout << left << setw(30) << ctName;
 	cout << left << setw(10) << ctStartDate;
 	cout << left << setw(10) << ctEndDate;
-	cout << left << setw(10) << ctCost;
+	cout << left << setw(10) << ctCost/1000;
 
 }
 void Contracts::setCTID(int i) {
