@@ -9,6 +9,7 @@ This program will
 #include "Contracts.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 int ctID = 0;
 string ctName = "";
@@ -17,11 +18,17 @@ double ctEndDate = 0;
 double ctCost = 0;
 
 void Contracts::displayCTInfo() {
-	cout << "Contract Number:" << ctID << endl;
-	cout << "Contract Name: " << ctName << endl;
-	cout << "Contract Start Date: " << ctStartDate << endl;
-	cout << "Contract End Date: " << ctEndDate << endl;
-	cout << "Contract Cost: " << ctCost << endl;
+	cout << setprecision(2) << fixed << showpoint;
+	cout << endl;
+	cout << endl;
+	cout << left << setw(12) << "Cont ID#" << left << setw(30) << "Cont Name" << left << setw(10) << "Start" << left << setw(10) << "End" << left << setw(10) << "Cost($)" << endl;
+	cout << "-------------------------------------------------------------------------\n";
+	cout << left << setw(12) << ctID;
+	cout << left << setw(30) << ctName;
+	cout << left << setw(10) << ctStartDate;
+	cout << left << setw(10) << ctEndDate;
+	cout << left << setw(10) << ctCost;
+
 }
 void Contracts::setCTID(int i) {
 	ctID = i;

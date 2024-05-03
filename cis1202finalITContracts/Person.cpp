@@ -10,6 +10,7 @@ This program will
 #include "Person.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 int pID = 0;
 string pSkill = "";
@@ -19,10 +20,18 @@ char pHire =' ';
 
 void Person::displayCTInfo() {
 	Contracts::displayCTInfo();					// call base class display function
-	cout << "Person ID:" << pID << endl;
-	cout << "Person Skill: " << pSkill << endl;
-	cout << "Person Years of Experience: " << pYearsExp << endl;
-	cout << "Hire?: " << pHire << endl;
+	cout << setprecision(2) << fixed << showpoint;
+	cout << endl;
+	cout << endl;
+	cout << left << setw(12) << "Per ID#" << left << setw(30) << "Per Skill" << left << setw(10) << "Yrs Exp" << left << setw(10) << "Hire?" << endl;
+	cout << "-----------------------------------------------------------------\n";
+	cout << left << setw(12) << pID;
+	cout << left << setw(30) << pSkill;
+	cout << left << setw(10) << pYearsExp;
+	cout << left << setw(10) << pHire;
+	cout << endl;
+	cout << endl;
+	
 }
 
 void Person::setPID(int i) {

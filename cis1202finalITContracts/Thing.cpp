@@ -10,6 +10,7 @@ This program will
 #include "Thing.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 int thID = 0;
 string thManufacturer="";
@@ -19,11 +20,20 @@ int thYearsLife=0;
 
 void Thing::displayCTInfo() {
 	Contracts::displayCTInfo();					// call base class display function
-	cout << "Contract Equipment ID:" << thID << endl;
-	cout << "Manufacturer: " << thManufacturer << endl;
-	cout << "Model: " << thModel << endl;
-	cout << "Year Purchased: " << thYearPurch << endl;
-	cout << "Years of Life: " << thYearsLife << endl;
+
+	cout << setprecision(2) << fixed << showpoint;
+	cout << endl;
+	cout << endl;
+	cout << left << setw(12) << "Eq ID#" << left << setw(30) << "Manufacturer" << left << setw(20) << "Model" << left << setw(10) << "Yr Purch" << left << setw(10) << "Yrs Life" << endl;
+	cout << "--------------------------------------------------------------------------------------\n";
+	cout << left << setw(12) << thID;
+	cout << left << setw(30) << thManufacturer;
+	cout << left << setw(20) << thModel;
+	cout << left << setw(10) << thYearPurch;
+	cout << left << setw(10) << thYearsLife;
+	cout << endl;
+	cout << endl;
+
 }
 
 void Thing::setThID(int i) {

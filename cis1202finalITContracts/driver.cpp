@@ -12,14 +12,56 @@ This program will
 #include "Place.h"
 #include "Thing.h"
 
+
+struct PersonContData {
+	int userCTID = 0;
+	string userCTName = "";
+	double userCTStart = 0;
+	double userCTEnd = 0;
+	double userCTCost = 0;
+	int userPID = 0;
+	string userPSkill="";
+	int userPYearsExp = 0;
+	char userPHire = 'N';
+};
+
+struct PlaceContData {
+	int userCTID = 0;
+	string userCTName = "";
+	double userCTStart = 0;
+	double userCTEnd = 0;
+	double userCTCost = 0;
+	int userLcID = 0;
+	string userLcLocation = "";
+	int userLcSFt = 0;
+};
+struct ThingContData {
+	int userCTID = 0;
+	string userCTName = "";
+	double userCTStart = 0;
+	double userCTEnd = 0;
+	double userCTCost = 0;
+	int userThID = 0;
+	string userThManufacturer = "";
+	string userThModel = "";
+	int userThYearPurch = 0;
+	int userThYearsLife = 0;
+};
+
 // function prototypes
 int menu();
-void createPersonContract();
-void createPlaceContract();
-void createThingContract();
+PersonContData createPersonContract();
+PlaceContData createPlaceContract();
+ThingContData createThingContract();
 Contracts createContractHeader();
+void displayAllContracts(vector<PersonContData>, vector<PlaceContData>,vector<ThingContData>);
 
 int main() {
+	// fstream File("contractsPeople.dat", ios::in | ios::out | ios::binary | ios::app);
+	vector<PersonContData> allPersonContracts;
+	vector<PlaceContData> allPlaceContracts;
+	vector<ThingContData> allThingContracts;
+
 	// declare and intialize variables
 	int	choice = 0;
 
@@ -32,16 +74,16 @@ int main() {
 			switch (choice)
 			{
 			case 1:
-				createPersonContract();
+				allPersonContracts.push_back(createPersonContract());
 				break;
 			case 2:
-				createPlaceContract();
+				allPlaceContracts.push_back(createPlaceContract());
 				break;
 			case 3:
-				createThingContract();
+				allThingContracts.push_back(createThingContract());
 				break;
 			case 4:
-				cout << "Option4 chosen";
+				displayAllContracts(allPersonContracts, allPlaceContracts, allThingContracts);
 				break;
 			}
 		}
@@ -71,11 +113,13 @@ int menu() {
 	return selection;
 }
 
-void createPersonContract() {
+PersonContData createPersonContract() {
 	// declare and initialize variables
 	int userPID=0, userPYearsExp=0;
 	string userPSkill="";
 	char userPHire = 'N';
+	PersonContData personContracts;
+
 	
 	Contracts c1 = createContractHeader();
 	
@@ -105,6 +149,17 @@ void createPersonContract() {
 
 	Person p1 = Person(userPID, userPSkill, userPYearsExp, userPHire);
 	
+
+	personContracts.userCTID = c1.getCTID();
+	personContracts.userCTName = c1.getCTName();
+	personContracts.userCTStart = c1.getCTStartDate();
+	personContracts.userCTEnd = c1.getCTEndDate();
+	personContracts.userCTCost = c1.getCTCost();
+	personContracts.userPID = p1.getPID();
+	personContracts.userPSkill= p1.getPSkill();
+	personContracts.userPYearsExp = p1.getPYearsExp();
+	personContracts.userPHire = p1.getPHire();
+	
 	p1.setCTID(c1.getCTID());
 	p1.setCTName(c1.getCTName());
 	p1.setCTStartDate(c1.getCTStartDate());
@@ -112,12 +167,20 @@ void createPersonContract() {
 	p1.setCTCost(c1.getCTCost());
 	p1.displayCTInfo();
 
+	fstream File("contractsPeople.dat", ios::out | ios::binary | ios::app);
+
+	File.write(reinterpret_cast<char*>(&personContracts), sizeof(personContracts));
+	File.close();
+	
+	return personContracts;
 }
 
-void createPlaceContract() {
+PlaceContData createPlaceContract() {
 	// declare and initialize variables
 	int userLcID = 0, userLcSFt = 0;
 	string userLcLocation = "";
+
+	PlaceContData placeContracts;
 
 	Contracts c1 = createContractHeader();
 	
@@ -138,18 +201,39 @@ void createPlaceContract() {
 	}
 
 	Place pl1 = Place(userLcID, userLcLocation, userLcSFt);
+
+
+	placeContracts.userCTID = c1.getCTID();
+	placeContracts.userCTName = c1.getCTName();
+	placeContracts.userCTStart = c1.getCTStartDate();
+	placeContracts.userCTEnd = c1.getCTEndDate();
+	placeContracts.userCTCost = c1.getCTCost();
+	placeContracts.userLcID = pl1.getLcID();
+	placeContracts.userLcLocation = pl1.getLcLocation();
+	placeContracts.userLcSFt = pl1.getLcSFt();
+	
 	pl1.setCTID(c1.getCTID());
 	pl1.setCTName(c1.getCTName());
 	pl1.setCTStartDate(c1.getCTStartDate());
 	pl1.setCTEndDate(c1.getCTEndDate());
 	pl1.setCTCost(c1.getCTCost());
 	pl1.displayCTInfo();
+
+	fstream File("contractsPlaces.dat", ios::out | ios::binary | ios::app);
+
+	File.write(reinterpret_cast<char*>(&placeContracts), sizeof(placeContracts));
+	File.close();
+
+	return placeContracts;
+
 }
 
-void createThingContract() {
+ThingContData createThingContract() {
 	// declare and initialize variables
 	int userThID = 0, userThYearPurch = 0, userThYearsLife=0;
 	string userThManufacturer = "", userThModel="";
+
+	ThingContData thingContracts;
 
 	Contracts c1 = createContractHeader();
 
@@ -179,6 +263,18 @@ void createThingContract() {
 	}
 
 	Thing th1 = Thing(userThID, userThManufacturer, userThModel, userThYearPurch, userThYearsLife);
+
+	thingContracts.userCTID = c1.getCTID();
+	thingContracts.userCTName = c1.getCTName();
+	thingContracts.userCTStart = c1.getCTStartDate();
+	thingContracts.userCTEnd = c1.getCTEndDate();
+	thingContracts.userCTCost = c1.getCTCost();
+	thingContracts.userThID = th1.getThID();
+	thingContracts.userThManufacturer = th1.getThManufacturer();
+	thingContracts.userThModel = th1.getThModel();
+	thingContracts.userThYearPurch = th1.getThYearPurch();
+	thingContracts.userThYearsLife = th1.getThYearsLife();
+
 	th1.setCTID(c1.getCTID());
 	th1.setCTName(c1.getCTName());
 	th1.setCTStartDate(c1.getCTStartDate());
@@ -186,6 +282,12 @@ void createThingContract() {
 	th1.setCTCost(c1.getCTCost());
 	th1.displayCTInfo();
 
+	fstream File("contractsThings.dat", ios::out | ios::binary | ios::app);
+
+	File.write(reinterpret_cast<char*>(&thingContracts), sizeof(thingContracts));
+	File.close();
+
+	return thingContracts;
 }
 
 Contracts createContractHeader() {
@@ -256,3 +358,40 @@ Contracts createContractHeader() {
 	return c1;
 
 }
+
+void displayAllContracts(vector<PersonContData> allPersons, vector<PlaceContData> allPlaces, vector<ThingContData> allThings) {
+	for (int i = 0;i < allPersons.size();i++) {
+		cout << allPersons[i].userCTID << endl;
+		cout << allPersons[i].userCTName << endl;
+		cout << allPersons[i].userCTStart << endl;
+		cout << allPersons[i].userCTEnd << endl;
+		cout << allPersons[i].userCTCost << endl;
+		cout << allPersons[i].userPID << endl;
+		cout << allPersons[i].userPSkill << endl;
+		cout << allPersons[i].userPYearsExp << endl;
+		cout << allPersons[i].userPHire << endl;
+	}
+	for (int i = 0;i < allPlaces.size();i++) {
+		cout << allPlaces[i].userCTID << endl;
+		cout << allPlaces[i].userCTName << endl;
+		cout << allPlaces[i].userCTStart << endl;
+		cout << allPlaces[i].userCTEnd << endl;
+		cout << allPlaces[i].userCTCost << endl;
+		cout << allPlaces[i].userLcID << endl;
+		cout << allPlaces[i].userLcLocation << endl;
+		cout << allPlaces[i].userLcSFt << endl;
+	}
+	for (int i = 0;i < allThings.size();i++) {
+		cout << allThings[i].userCTID << endl;
+		cout << allThings[i].userCTName << endl;
+		cout << allThings[i].userCTStart << endl;
+		cout << allThings[i].userCTEnd << endl;
+		cout << allThings[i].userCTCost << endl;
+		cout << allThings[i].userThID << endl;
+		cout << allThings[i].userThManufacturer << endl;
+		cout << allThings[i].userThModel << endl;
+		cout << allThings[i].userThYearPurch << endl;
+		cout << allThings[i].userThYearsLife << endl;
+	}
+}
+

@@ -10,6 +10,7 @@ This program will
 #include "Place.h"
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 int lcID = 0;
 string lcLocation = "";
@@ -17,9 +18,17 @@ int lcSFt = 0;
 
 void Place::displayCTInfo() {
 	Contracts::displayCTInfo();					// call base class display function
-	cout << "Location ID:" << lcID << endl;
-	cout << "Location Name: " << lcLocation << endl;
-	cout << "Location Square Feet: " << lcSFt << endl;
+	cout << setprecision(2) << fixed << showpoint;
+	cout << endl;
+	cout << endl;
+	cout << left << setw(12) << "Loc ID#" << left << setw(30) << "Loc Location" << left << setw(10) << "Loc Sqr Feet" << endl;
+	cout << "-------------------------------------------------------\n";
+	cout << left << setw(12) << lcID;
+	cout << left << setw(30) << lcLocation;
+	cout << left << setw(10) << lcSFt;
+	cout << endl;
+	cout << endl;
+	
 }
 
 void Place::setLcID(int i) {
